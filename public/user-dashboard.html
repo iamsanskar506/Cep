@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Blood Donation System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="blood-icon">🩸</span>
+                <span>Blood Donation System</span>
+            </div>
+            <div class="nav-links">
+                <span id="user-name" class="user-greeting"></span>
+                <button onclick="logout()" class="btn btn-small">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item active" onclick="showTab('overview')">
+                    <span>📊</span> Overview
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('donor-registration')">
+                    <span>🩸</span> Register as Donor
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('find-donors')">
+                    <span>🔍</span> Find Donors
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('blood-requests')">
+                    <span>📋</span> Blood Requests
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('my-requests')">
+                    <span>📝</span> My Requests
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('messages')">
+                    <span>💬</span> Messages
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Overview Tab -->
+            <div id="overview-tab" class="tab-content active">
+                <h1>Welcome to Your Dashboard</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🩸</div>
+                        <div class="stat-info">
+                            <h3 id="donor-status">Not Registered</h3>
+                            <p>Donor Status</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-info">
+                            <h3 id="my-requests-count">0</h3>
+                            <p>My Blood Requests</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-info">
+                            <h3 id="messages-count">0</h3>
+                            <p>Messages Received</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Quick Actions</h2>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="showTab('donor-registration')">Register as Donor</button>
+                        <button class="btn btn-secondary" onclick="showTab('find-donors')">Find Donors</button>
+                        <button class="btn btn-secondary" onclick="showTab('blood-requests')">Request Blood</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donor Registration Tab -->
+            <div id="donor-registration-tab" class="tab-content">
+                <h1>Register as Blood Donor</h1>
+                <div id="donor-info-display" style="display: none;">
+                    <div class="success-message">You are already registered as a donor!</div>
+                    <div class="donor-details-card">
+                        <h3>Your Donor Information</h3>
+                        <div id="donor-details"></div>
+                        <button class="btn btn-primary" onclick="editDonorInfo()">Update Information</button>
+                    </div>
+                </div>
+                
+                <div id="donor-registration-form-container">
+                    <div id="donor-message" class="message" style="display: none;"></div>
+                    <form id="donor-form" class="form-container">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donor-blood-group">Blood Group *</label>
+                                <select id="donor-blood-group" required>
+                                    <option value="">Select Blood Group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-age">Age *</label>
+                                <input type="number" id="donor-age" min="18" max="65" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donor-weight">Weight (kg) *</label>
+                                <input type="number" id="donor-weight" min="45" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-donation">Last Donation Date</label>
+                                <input type="date" id="last-donation">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="donor-address">Address *</label>
+                            <textarea id="donor-address" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donor-city">City *</label>
+                                <input type="text" id="donor-city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-state">State *</label>
+                                <input type="text" id="donor-state" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medical-conditions">Medical Conditions (if any)</label>
+                            <textarea id="medical-conditions" rows="3" placeholder="List any medical conditions or medications"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Register as Donor</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Find Donors Tab -->
+            <div id="find-donors-tab" class="tab-content">
+                <h1>Find Blood Donors</h1>
+                
+                <div class="search-filters">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="search-blood-group">Blood Group</label>
+                            <select id="search-blood-group">
+                                <option value="">All Blood Groups</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-city">City</label>
+                            <input type="text" id="search-city" placeholder="Enter city name">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" onclick="searchDonors()">Search</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="donors-list" class="donors-grid"></div>
+            </div>
+
+            <!-- Blood Requests Tab -->
+            <div id="blood-requests-tab" class="tab-content">
+                <h1>Create Blood Request</h1>
+                
+                <div id="request-message" class="message" style="display: none;"></div>
+                
+                <form id="blood-request-form" class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="request-blood-group">Blood Group Needed *</label>
+                            <select id="request-blood-group" required>
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="units-needed">Units Needed *</label>
+                            <input type="number" id="units-needed" min="1" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urgency">Urgency Level *</label>
+                        <select id="urgency" required>
+                            <option value="">Select Urgency</option>
+                            <option value="critical">Critical (Immediate)</option>
+                            <option value="urgent">Urgent (Within 24 hours)</option>
+                            <option value="normal">Normal (Within a week)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospital-name">Hospital Name *</label>
+                        <input type="text" id="hospital-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospital-address">Hospital Address *</label>
+                        <textarea id="hospital-address" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="request-city">City *</label>
+                            <input type="text" id="request-city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-number">Contact Number *</label>
+                            <input type="tel" id="contact-number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reason">Reason for Request</label>
+                        <textarea id="reason" rows="3" placeholder="Optional: Provide details about the patient's condition"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                </form>
+                
+                <div class="section-divider"></div>
+                
+                <h2>All Blood Requests</h2>
+                <div id="all-requests-list" class="requests-list"></div>
+            </div>
+
+            <!-- My Requests Tab -->
+            <div id="my-requests-tab" class="tab-content">
+                <h1>My Blood Requests</h1>
+                <div id="my-requests-list" class="requests-list"></div>
+            </div>
+
+            <!-- Messages Tab -->
+            <div id="messages-tab" class="tab-content">
+                <h1>Messages from Blood Seekers</h1>
+                <div id="messages-list" class="messages-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Donor Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeContactModal()">&times;</span>
+            <h2>Contact Donor</h2>
+            <form id="contact-form">
+                <input type="hidden" id="contact-donor-id">
+                <div class="form-group">
+                    <label for="contact-message">Message *</label>
+                    <textarea id="contact-message" rows="4" required placeholder="Explain your blood requirement..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sender-contact">Your Contact Number *</label>
+                    <input type="tel" id="sender-contact" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="user-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Blood Donation System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="blood-icon">🩸</span>
+                <span>Blood Donation System - Admin Panel</span>
+            </div>
+            <div class="nav-links">
+                <span id="admin-name" class="user-greeting"></span>
+                <button onclick="logout()" class="btn btn-small">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item active" onclick="showTab('overview')">
+                    <span>📊</span> Dashboard
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('users')">
+                    <span>👥</span> Manage Users
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('donors')">
+                    <span>🩸</span> Manage Donors
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('requests')">
+                    <span>📋</span> Blood Requests
+                </a>
+                <a href="#" class="menu-item" onclick="showTab('messages')">
+                    <span>💬</span> All Messages
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Overview Tab -->
+            <div id="overview-tab" class="tab-content active">
+                <h1>Admin Dashboard Overview</h1>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 id="total-users">0</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🩸</div>
+                        <div class="stat-info">
+                            <h3 id="total-donors">0</h3>
+                            <p>Registered Donors</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-info">
+                            <h3 id="total-requests">0</h3>
+                            <p>Blood Requests</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <h3 id="pending-requests">0</h3>
+                            <p>Pending Requests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2>System Information</h2>
+                    <div class="info-card">
+                        <p>Welcome to the Blood Donation System Admin Panel. From here you can:</p>
+                        <ul>
+                            <li>Monitor and manage all users</li>
+                            <li>View and manage donor registrations</li>
+                            <li>Oversee blood requests and their status</li>
+                            <li>Review communication between users and donors</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="users-tab" class="tab-content">
+                <h1>Manage Users</h1>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Blood Group</th>
+                                <th>Role</th>
+                                <th>Registered</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Donors Tab -->
+            <div id="donors-tab" class="tab-content">
+                <h1>Manage Donors</h1>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Blood Group</th>
+                                <th>Age</th>
+                                <th>Weight</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Available</th>
+                                <th>Last Donation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donors-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Requests Tab -->
+            <div id="requests-tab" class="tab-content">
+                <h1>Blood Requests Management</h1>
+                
+                <div id="requests-list" class="requests-list"></div>
+            </div>
+
+            <!-- Messages Tab -->
+            <div id="messages-tab" class="tab-content">
+                <h1>All Messages</h1>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>From</th>
+                                <th>To (Donor)</th>
+                                <th>Message</th>
+                                <th>Contact</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messages-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
